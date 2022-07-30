@@ -5,19 +5,16 @@ and only applies in situations where there is a conservative force like gravity,
 and where the gravitational acceleration can be considered constant (Near the surface of Earth). *)
 
 open FSharp.Data.UnitSystems.SI.UnitSymbols
+open vectors
 
-let g = 9.81<m/s^2>
+// All of these functions take a velocity vector and acceleration vector as arguments.
 
-let getVelocityFromHeight (h : float<m>) = // Unit: m/s
-  2.0 * g * h |> sqrt
+let getVelocityFromHeight (v1 : vector2D<'u>) (a : vector2D<'a>) =
+  2.0 * a.y * v1.y |> sqrt
 
-// Gets the velocity from height, but with an initial velocity v0.
-let withInitialVelocity (getVelocityFromHeight : float<m/s>) (v0 : float<m/s>) = // Unit: m/s
-  getVelocityFromHeight * getVelocityFromHeight + v0 * v0 |> sqrt
+let getHeightFromVelocity (v1 : vector2D<'u>) (a : vector2D<'a>) =
+  v1.y * v1.y / (2.0 * a.y)
 
-let getHeightFromVelocity (v : float<m/s>) = // Unit: m
-  v * v / (2.0 * g)
-
-let getTimeFromHeight (h : float<m>) = // Unit: s
-  // The equation used here is actually: h = 2 * g * t^2
-  2.0 * h / g |> sqrt
+let getTimeFromHeight (v1 : vector2D<'u>) (a : vector2D<'a>) =
+  // The equation used here is actually: h = ½ * a * t^2
+  2.0 * v1.y / a.y |> sqrt

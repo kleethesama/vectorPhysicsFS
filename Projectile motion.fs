@@ -2,23 +2,20 @@ module projectileMotion
 
 open System
 open FSharp.Data.UnitSystems.SI.UnitSymbols
-open conservationOfEnergy
+open vectors
 
-[<Measure>] type degrees
+let flightTime (v1 : vector2D<'u>) (a : vector2D<'a>) (θ : float) =
+  let v = v1 |> magnitudeOfVector2D
+  2.0 * v * Math.Sin(θ) / a.y
 
-let degreesToRad (θ : float<degrees>) =
-  Math.PI * θ / 180.0 / 1.0<degrees>
+let maxDistance (v1 : vector2D<'u>) (a : vector2D<'a>) (θ : float) =
+  let D = v1 |> magnitudeOfVector2D
+  2.0 * D * D * Math.Sin(θ) * Math.Cos(θ) / a.y
 
-let flightTime (v : float<m/s>) (θ : float<degrees>) =
-  2.0 * v * Math.Sin(θ |> degreesToRad) / conservationOfEnergy.g
+let getPositionX (v1 : vector2D<'u>) (θ : float) (t : float<'a>) =
+  let v = v1 |> magnitudeOfVector2D
+  v * Math.Cos(θ) * t
 
-let maxDistance (v : float<m/s>) (θ : float<degrees>) =
-  2.0 * v * v * Math.Sin(θ |> degreesToRad) * Math.Cos(θ |> degreesToRad) / conservationOfEnergy.g
-
-let getPositionX (v : float<m/s>) (θ : float<degrees>) (t : float<s>) =
-  let vX = v * Math.Cos(θ |> degreesToRad)
-  vX * t
-
-let getPositionY (v : float<m/s>) (θ : float<degrees>) (t : float<s>) =
-  let vY = v * Math.Sin(θ |> degreesToRad)
-  (vY - conservationOfEnergy.g * t) * t
+let getPositionY (v1 : vector2D<'u>) (a : vector2D<'a>) (θ : float) (t : float<'a>) =
+  let v = v1 |> magnitudeOfVector2D
+  (v * Math.Sin(θ) - a.y * t) * t
