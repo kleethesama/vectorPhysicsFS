@@ -9,12 +9,12 @@ open vectors
 
 // All of these functions take a velocity vector and acceleration vector as arguments.
 
-let getVelocityFromHeight (v1 : vector2D<'u>) (a : vector2D<'a>) =
-  2.0 * a.y * v1.y |> sqrt
+let getVelocityFromHeight (vec1 : vector2D<'u>) (a : vector2D<'a>) =
+  2.0 * a.y * vec1.y |> sqrt
 
-let getHeightFromVelocity (v1 : vector2D<'u>) (a : vector2D<'a>) =
-  v1.y * v1.y / (2.0 * a.y)
+let getHeightFromVelocity (vec1 : vector2D<'u>) (a : vector2D<'a>) =
+  vec1.y * vec1.y / (2.0 * a.y)
 
-let getTimeFromHeight (v1 : vector2D<'u>) (a : vector2D<'a>) =
+let getTimeFromHeight (vec1 : vector2D<'u>) (a : vector2D<'a>) =
   // The equation used here is actually: h = ½ * a * t^2
-  2.0 * v1.y / a.y |> sqrt
+  2.0 * vec1.y / a.y |> sqrt
