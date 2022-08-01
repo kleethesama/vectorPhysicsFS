@@ -5,13 +5,14 @@ open System
 type vector2D<[<Measure>]'u> = {x : float<'u>; y : float<'u>}
 type vector3D<[<Measure>]'u> = {x : float<'u>; y : float<'u>; z : float<'u>}
 
-let degreesToRad (θ : float) =
+let degreesToRad θ =
   Math.PI * θ / 180.0
 
 let newVector2D (x1 : float<'u>) (y1 : float<'u>) =
   let object : vector2D<'u> = {x = x1; y = y1}
   object
 
+// Computes the sum of the field values from all of the vectors in the list, respectively.
 let addVectors2D (data : vector2D<'u> list) =
   let rec loop (data : vector2D<'u> list) acc1 acc2 =
     match data with
