@@ -4,4 +4,4 @@ Just a small physics-programming project that focuses on using vectors as quanti
 
 # Dependencies
 
-.NET for its trigonometrical functions.
+.NET 6.0
