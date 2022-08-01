@@ -6,7 +6,7 @@ open vectors
 (* Constructs a float list from numbers a to b,
 works with or without a unit of measurement. I wrote this because apparently
 this syntax doesn't support units of measurement: [1<m/s> .. 100<m/s>] *)
-let newIntList a b =
+let newList a b =
   let rec loop a b l =
     match b with
     | 0.0<_> -> l
